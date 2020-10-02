@@ -1,3 +1,14 @@
+//Dette virker men svare det på opgaven?
+//spørg om det er okay init er definieret udenfor funktionen?
+let a = Array2D.init 2 3 (fun x y -> (x,y))
+let b = Array2D.init 7 9 (fun x y -> (x,y))
+let transposeArr (array2d:'a [,]) : 'a [,] =
+    let newArray = Array2D.init (array2d |> Array2D.length2) (array2d |> Array2D.length1) (fun r c -> array2d.[c,r])
+    newArray
+printfn "%A" b
+printfn "%A" (transposeArr(b))
+
+(*
 let squares (n:int) :int [] = 
     let arr = Array.init n (fun x -> x*x)
     arr
@@ -30,15 +41,7 @@ let transposeArr (array2d:'a [,]) : 'a [,] =
     newArray
 printfn"%A" (transposeArr(arrayOfArrays))
 
-//Dette virker men svare det på opgaven?
-//spørg om det er okay init er definieret udenfor funktionen?
-let a = Array2D.init 2 3 (fun x y -> (x,y))
-let b = Array2D.init 7 9 (fun x y -> (x,y))
-let transposeArr (array2d:'a [,]) : 'a [,] =
-    let newArray = Array2D.init (array2d |> Array2D.length2) (array2d |> Array2D.length1) (fun r c -> array2d.[c,r])
-    newArray
-printfn "%A" b
-printfn "%A" (transposeArr(b))
+
 
 
 let arrayOfArrays = [| [| 1; 0 ; 3|]; [|0; 1 ; 2|] |]
@@ -59,3 +62,5 @@ let transpose (matrix: 'a [,]) : 'a [,]=
     Array.init matrix.[0].Length (fun i -> 
         Array.init matrix.Length (fun j -> 
             matrix.[j].[i]))
+*)
+

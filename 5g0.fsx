@@ -1,24 +1,4 @@
 
-let isTable (llst: 'a list list) : bool =
-    if List.length llst < 2 then false
-    else
-        if List.length llst.[0] = 0 || List.length llst.[1] = 0 then false 
-        else   
-            if List.length llst.[0] = List.length llst.[1] then true
-            else false
-
-let trying = [[];[]]
-printfn "%A" (List.length trying)
-printfn "%A" (isTable(trying))
-
-(*
-let isTable (llst: 'a list) : bool =
-    if List.isEmpty llst then false
-    else true 
- 
-let trying = []
-printfn "%A" (isTable(trying))
-*)
 
 let isTable (llst:'a list list) : bool =
     let mutable valid : bool = true
@@ -46,7 +26,8 @@ let isTable (llst:'a list list) : bool =
                 valid <- false
             i <- i + 1
         valid
-
+//alternative løsning - lidt dårligere køretid
+(*
 let isTable2 (llst:'a list list) : bool =
     let mutable valid : bool = true
     let len : int = llst.Head.Length
@@ -63,29 +44,37 @@ let isTable2 (llst:'a list list) : bool =
             if elm.Length <> len then
                 valid <- false
         valid
+*)
+//let myTable = [[1;2;3];[4;5;6];[7;8;9];[10;11;12]]
+let myTable = [[1;2;3];[4;5;6];[7;8;9];[10;11;12]]
+//firstColumn myTable
+printfn "%b" (isTable myTable)
+//printfn "%b" (isTable2 myTable)
 
-(*let firstColumn (llst:'a list list) : 'a list =
-    let mutable llst2 : 'a list = llst.Head
-    let len : int = llst.Length
-    let mutable i = 1
-    let mutable counter = llst.Head.Head
-    //let row = llst.Item 0 in printfn "%A" row
-    while (i < len) do
-        printfn "%A" llst2.Tail
-        llst2 <- List.append 
-        i <- i + 1
-    llst2*)
-
+//5g0(b)
 let firstColumn (llst:'a list list) : 'a list =
-    let mutable newList = []
-    let mutable counter = 1
-    for elm in llst do
-        newList <- newList @ elm
-        for elm2 in elm do
-        counter <- counter + 1
-    newList
+    let mutable llst2 : 'a list = []
+    let llst3 = List.map (fun (x: 'a list) -> x.IsEmpty) llst
+    if List.contains (true) (llst3) then
+        llst2 <- []
+    else 
+        llst2 <- List.map (fun (x : 'a list) -> x.Head) llst
+    llst2
+
+
+//5g0c
+let dropFirstColumn (llst:'a list list) : 'a list list =
+    let mutable llst2 : 'a list list = [[]]
+    let llst3 = List.map (fun (x: 'a list) -> x.IsEmpty) llst
+    if List.contains (true) (llst3) then
+        llst2 <- [[]]
+    else 
+        llst2 <- List.map (fun (x : 'a list) -> x.Tail) llst
+    llst2
 
 let myTable = [[1;2;3];[4;5;6];[7;8;9];[10;11;12]]
-firstColumn myTable
-printfn "%b" (isTable myTable)
-printfn "%b" (isTable2 myTable)
+dropFirstColumn myTable
+
+//5g0d
+let transposeLstLst (llst :'a list list) : 'a list list =
+    while 
