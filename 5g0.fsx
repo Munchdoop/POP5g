@@ -68,32 +68,13 @@ let dropFirstColumn (llst:'a list list) : 'a list list =
     llst2
 
 //5g0d
-(*let transposeLstLst (llst :'a list list) : 'a list list =
+let transposeLstLst (llst :'a list list) : 'a list list =
     let mutable (a: 'a list list) = llst
     let mutable b = []
-    for elm in llst do
-        b <- b @ firstColumn a
+    while List.forall (fun (x:'a list) -> x.Length > 0) a do
+        b <- b @ [firstColumn a]
         a <- dropFirstColumn a
-    b*)
+    b
 
-let myTable = [[1;2;3];[4;5;6];[7;9];[10;11;12]]
-let mutable a = myTable
-let mutable b : 'a list = []
-printfn "%A\n%A" a b
-b <- b @ [firstColumn a]
-a <- dropFirstColumn a
-printfn "%A\n%A" a b
-b <- b @ [firstColumn a]
-a <- dropFirstColumn a
-printfn "%A\n%A" a b
-b <- b @ [firstColumn a]
-a <- dropFirstColumn a
-printfn "%A\n%A" a b
-(*b <- b @ (firstColumn a)
-a <- dropFirstColumn a
-b <- b @ (firstColumn a)
-a <- dropFirstColumn a*)
-(*for elm in a do
-    b <- b @ (firstColumn a)
-    a <- (dropFirstColumn a)
-printfn "%A" b*)
+let myTable = [[1;2;3;4];[4;5;6;4];[7;8;9;4]]
+transposeLstLst myTable
