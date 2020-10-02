@@ -45,11 +45,6 @@ let isTable2 (llst:'a list list) : bool =
                 valid <- false
         valid
 *)
-//let myTable = [[1;2;3];[4;5;6];[7;8;9];[10;11;12]]
-let myTable = [[1;2;3];[4;5;6];[7;8;9];[10;11;12]]
-//firstColumn myTable
-printfn "%b" (isTable myTable)
-//printfn "%b" (isTable2 myTable)
 
 //5g0(b)
 let firstColumn (llst:'a list list) : 'a list =
@@ -72,9 +67,20 @@ let dropFirstColumn (llst:'a list list) : 'a list list =
         llst2 <- List.map (fun (x : 'a list) -> x.Tail) llst
     llst2
 
-let myTable = [[1;2;3];[4;5;6];[7;8;9];[10;11;12]]
-dropFirstColumn myTable
-
 //5g0d
-let transposeLstLst (llst :'a list list) : 'a list list =
-    while 
+(*let transposeLstLst (llst :'a list list) : 'a list list =
+    let mutable (a: 'a list list) = llst
+    let mutable b = []
+    for elm in llst do
+        b <- b @ firstColumn a
+        a <- dropFirstColumn a
+    b*)
+
+let myTable = [[1;2;3];[4;5;6];[7;8;9];[10;11;12]]
+let mutable a = myTable
+let mutable b : 'a list = []
+printfn "%A" (firstColumn a)
+(*for elm in a do
+    b <- b @ (firstColumn a)
+    a <- (dropFirstColumn a)
+printfn "%A" b*)
