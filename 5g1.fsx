@@ -23,15 +23,22 @@ let prA (a : int[,]) =
 do prA a
 
 //tætteste på at virke 
-let arrayOfArrays = [| [|1;2 |] ;  [|3;4 |]] |]
+let arrayOfArrays = [|[1;2] , [3;4]|]
+
 let transposeArr (array2d:'a [,]) : 'a [,] =
     let newArray = Array2D.init 2 3  (fun r c -> array2d.[c,r])
     newArray
 printfn"%A" (transposeArr(arrayOfArrays))
 
-
-let a = Array2D.init 3 2 (fun x y -> (x,y))
-printfn "%A" a
+//Dette virker men svare det på opgaven?
+//spørg om det er okay init er definieret udenfor funktionen?
+let a = Array2D.init 2 3 (fun x y -> (x,y))
+let b = Array2D.init 7 9 (fun x y -> (x,y))
+let transposeArr (array2d:'a [,]) : 'a [,] =
+    let newArray = Array2D.init (array2d |> Array2D.length2) (array2d |> Array2D.length1) (fun r c -> array2d.[c,r])
+    newArray
+printfn "%A" b
+printfn "%A" (transposeArr(b))
 
 
 let arrayOfArrays = [| [| 1; 0 ; 3|]; [|0; 1 ; 2|] |]
