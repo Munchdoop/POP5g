@@ -76,10 +76,23 @@ let dropFirstColumn (llst:'a list list) : 'a list list =
         a <- dropFirstColumn a
     b*)
 
-let myTable = [[1;2;3];[4;5;6];[7;8;9];[10;11;12]]
+let myTable = [[1;2;3];[4;5;6];[7;9];[10;11;12]]
 let mutable a = myTable
 let mutable b : 'a list = []
-printfn "%A" (firstColumn a)
+printfn "%A\n%A" a b
+b <- b @ [firstColumn a]
+a <- dropFirstColumn a
+printfn "%A\n%A" a b
+b <- b @ [firstColumn a]
+a <- dropFirstColumn a
+printfn "%A\n%A" a b
+b <- b @ [firstColumn a]
+a <- dropFirstColumn a
+printfn "%A\n%A" a b
+(*b <- b @ (firstColumn a)
+a <- dropFirstColumn a
+b <- b @ (firstColumn a)
+a <- dropFirstColumn a*)
 (*for elm in a do
     b <- b @ (firstColumn a)
     a <- (dropFirstColumn a)
