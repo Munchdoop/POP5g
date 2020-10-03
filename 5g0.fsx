@@ -13,10 +13,9 @@ let isTable (llst:'a list list) : bool =
         let mutable llstCopy = llst
         let mutable i = 1
         let lenRows = llst.Length
-        (* WB: 2 *)
         while (i < lenRows) && isValidTable do
             llstCopy <- List.tail llstCopy
-            (* WB: 3 *)
+            (* WB: 2 *)
             if llstCopy.Head.Length <> lenFirstColumn then
                 isValidTable <- false
             i <- i + 1
@@ -63,9 +62,32 @@ let transposeLstLst (llst :'a list list) : 'a list list =
         a <- dropFirstColumn a
     b
 
+(*
 let InputList = [[1;2;3];[4;5;6]]
 printfn "InputList <- %A" InputList
 printfn "This is the result of the function isTable: %A" (isTable(InputList))
 printfn "this is the result of the function firstColumn: %A" (firstColumn(InputList))
 printfn "this is the result of the function dropFirstColumn: %A" (dropFirstColumn(InputList))
 printfn "this is the result of the function transposeLstLst: %A" (transposeLstLst(InputList))
+*)
+
+printfn "White-box testing of isTable.fsx"
+printfn "  Unit: isTable"
+printfn "    Branch: 1a - %b" (isTable [[]] = false)
+printfn "    Branch: 2a - %b" (isTable [[1;2];[1;2;2]] = false)
+printfn "    Branch: 2b - %b" (isTable [[1;2];[1;2]] = true)
+
+printfn "White-box testing of firstColumn.fsx"
+printfn "  Unit: firstColumn"
+printfn "    Branch: 1a - %b" (firstColumn [[]] = [])
+printfn "    Branch: 1b - %b" (firstColumn [[1;2];[1;2]] = [1;1])
+
+printfn "White-box testing of dropFirstColumn.fsx"
+printfn "  Unit: dropFirstColumn"
+printfn "    Branch: 1a - %b" (dropFirstColumn [[]] = [[]])
+printfn "    Branch: 1b - %b" (dropFirstColumn [[1;2];[1;2]] = [[2];[2]])
+
+printfn "White-box testing of transposeLstLst.fsx"
+printfn "  Unit: transposeLstLst"
+printfn "    Branch: 1a - %b" (transposeLstLst [[]] = [[]])
+printfn "    Branch: 1b - %b" (transposeLstLst [[1;2];[1;2]] = [[1;1];[2;2]])
