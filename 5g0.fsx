@@ -71,7 +71,8 @@ printfn "This is the result of the function isTable: %A" (isTable(InputList))
 printfn "this is the result of the function firstColumn: %A" (firstColumn(InputList))
 printfn "this is the result of the function dropFirstColumn: %A" (dropFirstColumn(InputList))
 printfn "this is the result of the function transposeLstLst: %A" (transposeLstLst(InputList))
-*)
+
+// BEGIN WHITEBOX TESTING
 
 printfn "White-box testing of isTable.fsx"
 printfn "  Unit: isTable"
@@ -93,3 +94,6 @@ printfn "White-box testing of transposeLstLst.fsx"
 printfn "  Unit: transposeLstLst"
 printfn "    Branch: 1a - %b" (transposeLstLst [[]] = [[]])
 printfn "    Branch: 1b - %b" (transposeLstLst [[1;2];[1;2]] = [[1;1];[2;2]])
+
+// END WHITEBOX TESTING
+*)
