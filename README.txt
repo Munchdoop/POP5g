@@ -60,6 +60,10 @@ White-box "transpose"
 +------------------+--------+-----------------------------------+-----------------+-----------------+
 
 White-box "transposeArr"
-unit         | Branch | condition | input   | expected output | comment                       |
-TransposeArr | 1      | --------- | array2d | -------         |                               |
-newArray     | 2      | --------- | array2d | transposed array| No conditions in this function|
++------------+--------+-----------+---------+-----------------+-------------------------------+
+|unit        | Branch | condition | input   | expected output | comment                       |
++------------+--------+-----------+---------+-----------------+-------------------------------+
+|TransposeArr| 1      |     -     | array2d |                 |                               |
++------------+--------+-----------+---------+-----------------+-------------------------------+
+|newArray    | 2      |     -     | array2d | transposed array| No conditions in this function|
++------------+--------+-----------+---------+-----------------+-------------------------------+
