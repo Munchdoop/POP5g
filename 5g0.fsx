@@ -1,7 +1,7 @@
-//5g0(a)
-///<summary>This function takes an a' list list as an argument and returns a true statement if all lists contain at least one element and are of the same size.</summary>
-///<param name="llst">A multidimensinal list.</param>
-///<returns>A boolean true or false statement.</returns>
+/// 5g0(a)
+/// <summary>Takes a two-dimensional list and returns <c>true</c> if all inner list elements contain at least one element and are of the same size.</summary>
+/// <param name="llst">A two-dimensional list.</param>
+/// <returns>A <typeparamref name="boolean"/> statement.</returns>
 let isTable (llst:'a list list) : bool =
     let mutable isValidTable : bool = true
     let lenFirstColumn : int = llst.Head.Length
@@ -21,10 +21,10 @@ let isTable (llst:'a list list) : bool =
             i <- i + 1
         isValidTable
 
-//5g0(b)
-///<summary>This function takes an 'a list list and returns the head in each embedded list.</summary>
-///<param name = "llst">This a multidimensional 'a list.</param>
-///<returns>Returns a list containing the heads of each of the list in the list.</returns>
+/// 5g0(b)
+/// <summary>Takes a two-dimensional list and returns the head of each embedded list element.</summary>
+/// <param name="llst">A two-dimensional list.</param>
+/// <returns>A one-dimensional list containing the head of each list element in <paramref name="llst"/>.</returns>
 let firstColumn (llst:'a list list) : 'a list =
     let mutable lstRes : 'a list = [] // Resultant 'a list
     let llstHasEmpty : bool list = List.map (fun (x: 'a list) -> x.IsEmpty) llst // Checks if llst has empty elements
@@ -35,10 +35,10 @@ let firstColumn (llst:'a list list) : 'a list =
         lstRes <- List.map (fun (x : 'a list) -> x.Head) llst
     lstRes
 
-//5g0(c)
-///<summary>This function takes a 'a list list and returns the tail in each embedded list.</summmary>
-///<param name = "llst">This a multidimensional a' list.</param>
-///<returns>Returns a list list containing the tails of each of the list in the list.</returns>
+/// 5g0(c)
+/// <summary>Takes a two-dimensional list and returns the tail of each embedded list element.</summary>
+/// <param name="llst">A two-dimensional list.</param>
+/// <returns>A two-dimensional list containing the tail of each list element in <paramref name="llst"/>.</returns>
 let dropFirstColumn (llst:'a list list) : 'a list list =
     let mutable lstRes : 'a list list = [[]]
     let llstHasEmpty = List.map (fun (x: 'a list) -> x.IsEmpty) llst
@@ -49,10 +49,12 @@ let dropFirstColumn (llst:'a list list) : 'a list list =
         lstRes <- List.map (fun (x : 'a list) -> x.Tail) llst
     lstRes
 
-//5g0(d)
-///<summary>transposeLstLst takes a multidimensional list and transposes it by using the funtions above.</summary>
-///<param name = "llst">This a multidimensional list.</param>
-///<returns>The function returns the transposed list.</returns>
+/// 5g0(d)
+/// <summary>Transposes a two-dimensional list by using the funtions <c>firstColumn</c> and <c>dropFirstColumn</c>.</summary>
+/// <param name="llst">A two-dimensional list.</param>
+/// <returns>The transposed two-dimensional list of <paramref name="llst"/>.</returns>
+/// <seealso cref="firstColumn : 'a list list -> 'a list"/>
+/// <seealso cref="DropFirstColumn : 'a list list -> 'a list list"/>
 let transposeLstLst (llst :'a list list) : 'a list list =
     let mutable a : 'a list list = llst
     let mutable b = []
