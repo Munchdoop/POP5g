@@ -66,9 +66,11 @@ let transposeLstLst (llst :'a list list) : 'a list list =
     b
 //printfn "this is the result of the function transposeLstLst: %A" (transposeLstLst([[1;2;3];[4;5;6]]))
 
-let InputList : 'a list list = [[1;2;3];[]]
+(*
+let InputList : 'a list list = [[1;2;3];[4;5;6]]
 printfn "InputList <- %A" InputList
 printfn "This is the result of the function isTable: %A" (isTable(InputList))
 printfn "this is the result of the function firstColumn: %A" (firstColumn(InputList))
 printfn "this is the result of the function dropFirstColumn: %A" (dropFirstColumn(InputList))
 printfn "this is the result of the function transposeLstLst: %A" (transposeLstLst(InputList))
+*)
