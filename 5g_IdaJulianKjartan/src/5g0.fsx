@@ -64,16 +64,17 @@ let transposeLstLst (llst :'a list list) : 'a list list =
         a <- dropFirstColumn a
     b
 
-(*
 let InputList = [[1;2;3];[4;5;6]]
-printfn "InputList <- %A" InputList
-printfn "This is the result of the function isTable: %A" (isTable(InputList))
-printfn "this is the result of the function firstColumn: %A" (firstColumn(InputList))
-printfn "this is the result of the function dropFirstColumn: %A" (dropFirstColumn(InputList))
-printfn "this is the result of the function transposeLstLst: %A" (transposeLstLst(InputList))
-*)
+printfn "\nInputList <- %A" InputList
+printfn "Result of function isTable: %A" (isTable(InputList))
+printfn "Result of function firstColumn: %A" (firstColumn(InputList))
+printfn "Result of function dropFirstColumn: %A" (dropFirstColumn(InputList))
+printfn "Result of function transposeLstLst: %A" (transposeLstLst(InputList))
 
-printfn "White-box testing of isTable.fsx"
+
+// BEGIN WHITEBOX TESTING
+
+printfn "\nWhite-box testing of isTable.fsx"
 printfn "  Unit: isTable"
 printfn "    Branch: 1a - %b" (isTable [[]] = false)
 printfn "    Branch: 2a - %b" (isTable [[1;2];[1;2;2]] = false)
@@ -92,4 +93,6 @@ printfn "    Branch: 1b - %b" (dropFirstColumn [[1;2];[1;2]] = [[2];[2]])
 printfn "White-box testing of transposeLstLst.fsx"
 printfn "  Unit: transposeLstLst"
 printfn "    Branch: 1a - %b" (transposeLstLst [[]] = [[]])
-printfn "    Branch: 1b - %b" (transposeLstLst [[1;2];[1;2]] = [[1;1];[2;2]])
+printfn "    Branch: 1b - %b\n" (transposeLstLst [[1;2];[1;2]] = [[1;1];[2;2]])
+
+// END WHITEBOX TESTING
