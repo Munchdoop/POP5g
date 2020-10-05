@@ -1,4 +1,4 @@
-/// 5g0(a)
+// 5g0(a)
 /// <summary>Takes a two-dimensional list and returns <c>true</c> if all inner list elements contain at least one element and are of the same size.</summary>
 /// <param name="llst">A two-dimensional list.</param>
 /// <returns>A <typeparamref name="boolean"/> statement.</returns>
@@ -21,7 +21,7 @@ let isTable (llst:'a list list) : bool =
             i <- i + 1
         isValidTable
 
-/// 5g0(b)
+// 5g0(b)
 /// <summary>Takes a two-dimensional list and returns the head of each embedded list element.</summary>
 /// <param name="llst">A two-dimensional list.</param>
 /// <returns>A one-dimensional list containing the head of each list element in <paramref name="llst"/>.</returns>
@@ -35,7 +35,7 @@ let firstColumn (llst:'a list list) : 'a list =
         lstRes <- List.map (fun (x : 'a list) -> x.Head) llst
     lstRes
 
-/// 5g0(c)
+// 5g0(c)
 /// <summary>Takes a two-dimensional list and returns the tail of each embedded list element.</summary>
 /// <param name="llst">A two-dimensional list.</param>
 /// <returns>A two-dimensional list containing the tail of each list element in <paramref name="llst"/>.</returns>
@@ -49,7 +49,7 @@ let dropFirstColumn (llst:'a list list) : 'a list list =
         lstRes <- List.map (fun (x : 'a list) -> x.Tail) llst
     lstRes
 
-/// 5g0(d)
+// 5g0(d)
 /// <summary>Transposes a two-dimensional list by using the funtions <c>firstColumn</c> and <c>dropFirstColumn</c>.</summary>
 /// <param name="llst">A two-dimensional list.</param>
 /// <returns>The transposed two-dimensional list of <paramref name="llst"/>.</returns>
