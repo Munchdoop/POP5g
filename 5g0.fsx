@@ -59,7 +59,7 @@ let transposeLstLst (llst :'a list list) : 'a list list =
     let mutable a : 'a list list = llst
     let mutable b = []
     (* WB: 1 *)
-    while List.forall (fun (x:'a list) -> x.Length > 0) a do
+    while List.forall (fun (x:'a list) -> not x.IsEmpty) a do
         b <- b @ [firstColumn a]
         a <- dropFirstColumn a
     b
@@ -92,7 +92,7 @@ printfn "    Branch: 1b - %b" (dropFirstColumn [[1;2];[1;2]] = [[2];[2]])
 
 printfn "White-box testing of transposeLstLst.fsx"
 printfn "  Unit: transposeLstLst"
-printfn "    Branch: 1a - %b" (transposeLstLst [[]] = [[]])
+printfn "    Branch: 1a - %b" (transposeLstLst [] = [[]])
 printfn "    Branch: 1b - %b\n" (transposeLstLst [[1;2];[1;2]] = [[1;1];[2;2]])
 
 // END WHITEBOX TESTING
