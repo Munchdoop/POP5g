@@ -1,4 +1,5 @@
-// module wargame 
+module Wargame_shuffle
+
 //sørg for libary virker 
 type card = int
 type deck = card list 
@@ -26,8 +27,8 @@ let shuffle (de:deck) : deck =
 
 
 //newdeck - skal lave et dæk af 4 serier med 2-14 tal (et reelt kortdæk)
-let dec = [2;3;4;5;6;7;8;9;10;11;12;13;14]
 let newdeck() :deck = 
+    let dec = [2;3;4;5;6;7;8;9;10;11;12;13;14]
     let deckappend1 = dec @ dec @ dec @ dec
     let shuffle3 = shuffle(deckappend1)
     shuffle3 
