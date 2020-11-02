@@ -35,7 +35,7 @@ let rec game (board:card list) (player1:player) (player2:player) : int =
     let draw1 = getCard(player1)
     let draw2 = getCard(player2)
     //printfn "%A %A" a b //test  
-    if fst draw1.Value > fst draw2.Value then //tested and works 
+    if fst draw1.Value > fst draw2.Value then //tested and works player1 works 
         let boardAppend = fst draw1.Value :: fst draw2.Value :: board
         let boardShuffle = Wargame_shuffle.shuffle(boardAppend)
         let player1Update = snd draw1.Value
@@ -45,16 +45,7 @@ let rec game (board:card list) (player1:player) (player2:player) : int =
         if List.isEmpty player1 then 2 
         elif List.isEmpty player2 then 1 
         else game [] player1Next player2Next
-    elif fst draw1.Value < fst draw2.Value then //tested and works
-        let boardAppend = fst draw1.Value :: fst draw2.Value :: board
-        let boardShuffle = Wargame_shuffle.shuffle(boardAppend)
-        let player2Update = snd draw2.Value
-        let player2Next = addCards boardShuffle player2Update
-        let player1Next = snd draw1.Value 
-        printfn "player2" //test 
-        if List.isEmpty player1 then 2 
-        elif List.isEmpty player2 then 1 
-        else game [] player1Next player2Next
+    elif fst draw1.Value < fst draw2.Value then //player two wins
     elif fst draw1.Value = fst draw2.Value then //war - but doesnt work 
         let c = fst draw1.Value :: board 
         let d = fst draw2.Value :: c
