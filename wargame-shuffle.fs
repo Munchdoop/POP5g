@@ -6,7 +6,7 @@ type deck = card list
 
 //deal-funktion
 let deal (d: deck) : deck*deck =
-    let rec stack dl (xs, ys) =
+    let rec stack dl (xs, ys) : deck*deck =
         match dl with
         | x::y::rest -> stack rest (x::xs, y::ys)
         | [x] -> (x::xs, ys)
@@ -17,11 +17,11 @@ let a = deal([4;9;2;5;3])
 let b = deal([])
 let c = deal([2])
 
-let rand : int -> int = let rnd = System.Random ()
+let rand : int -> int = let rnd = System.Random()
                         in fun n -> rnd.Next (0,n)
 //shuffle funktion
 let shuffle (de:deck) : deck =
-    let a = List.mapi (fun x y -> rand(52), y) de
+    let a = List.mapi (fun i y -> rand(52), y) de
     let b = List.sortBy fst a
     List.map snd b
 
