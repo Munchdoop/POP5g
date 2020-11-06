@@ -51,7 +51,7 @@ let rec game (board:deck) (player1:player) (player2:player) (acc:int) : int*int 
 //test and stats
 ///<summary> counts wins, ties and average game length. </summary>
 ///<param name = "n"> an int </param>
-///<returns> returns a string containing wins, ties and average game length. </param>
+///<returns> returns a string containing wins, ties and average game length.</param>
 let test (n:int) =
     let mutable winsPlayer1 = 0 
     let mutable winsPlayer2 = 0
