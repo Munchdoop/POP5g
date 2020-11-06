@@ -2,6 +2,14 @@
 ///<summary> counts wins, ties and average game length. </summary>
 ///<param name = "n"> an int </param>
 ///<returns> returns a string containing wins, ties and average game length.</param>
+
+let duration f = 
+    let timer = new System.Diagnostics.Stopwatch()
+    timer.Start()
+    let returnValue = f()
+    printfn "Elapsed Time: %i" timer.ElapsedMilliseconds
+    returnValue
+
 let test (n:int) =
     let mutable winsPlayer1 = 0 
     let mutable winsPlayer2 = 0
@@ -24,4 +32,5 @@ let test (n:int) =
             |> ignore
     let average = accumulatedPlays / n 
     printfn "Wins player1: %A, wins player2: %A, ties: %A, average: %A" winsPlayer1 winsPlayer2 ties average
-printfn "%A" (test 10000)
+
+printfn "%A" (duration (fun() -> test 10000))

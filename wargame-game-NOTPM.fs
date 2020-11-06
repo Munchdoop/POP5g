@@ -4,10 +4,17 @@ type player = deck
 
 module GameImperative =
 
-    let deckplay = Wargame_shuffle.newdeck()
-    let players = Wargame_shuffle.deal(deckplay)
+    let deckplay = Shuffle.newdeck()
+    let players = Shuffle.deal(deckplay)
     let player1 = fst players
     let player2 = snd players
+
+    let duration f = 
+        let timer = new System.Diagnostics.Stopwatch()
+        timer.Start()
+        let returnValue = f()
+        printfn "Elapsed Time: %i" timer.ElapsedMilliseconds
+        returnValue
     
     //getCard function 
     ///<summary>Takes a player type and returns a tuple containing the head and the tail of players as an option.</summary>
@@ -24,7 +31,7 @@ module GameImperative =
     ///<param name = "decks"> a deck type </param>
     ///<returns> a deck with board appended and shuffled </returns>
     let addCards (board : player) (decks : deck) : player =
-        let shuffle1 = Wargame_shuffle.shuffle(board)
+        let shuffle1 = Shuffle.shuffle(board)
         let a = decks @ shuffle1
         a
     
@@ -111,6 +118,7 @@ module GameImperative =
                 ties
             else
                 5
+            |> ignore
         let average = accumulatedPlays / n 
         printfn "Wins player1: %A, wins player2: %A, ties: %A, average: %A" winsPlayer1 winsPlayer2 ties average
-    printfn "%A" (test 10000)
+    printfn "%A" (duration (fun() -> test 10000))
