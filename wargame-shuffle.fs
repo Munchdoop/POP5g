@@ -2,7 +2,6 @@ namespace Wargame
 
 type card = int
 type deck = card list 
-//type player = card list
 
 module Shuffle =
     //deal-function

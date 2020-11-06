@@ -1,7 +1,5 @@
 namespace Wargame
 
-//type card = int
-//type deck = card list
 type player = deck
 
 module Game =
