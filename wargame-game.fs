@@ -50,6 +50,6 @@ module Game =
                             | None, None -> 0, acc
                             | _, None -> 1, acc
                             | None, _ -> 2, acc
-                            | Some (p1CardWar, p1CardDeckWar), Some (p2CardWar, p2CardDeckWar) ->
-                                game (p1CardWar:: p2CardWar :: cardPile) p1CardDeckWar p2CardDeckWar (acc+1)
+                            | Some (p1CardWar, p1DeckWar), Some (p2CardWar, p2DeckWar) ->
+                                game (p1CardWar:: p2CardWar :: cardPile) p1DeckWar p2DeckWar (acc+1)
                     | _ -> -1, acc
