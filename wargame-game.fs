@@ -36,8 +36,8 @@ module Game =
     let rec game (board:deck) (player1:player) (player2:player) (acc:int) : int*int =
         match getCard player1, getCard player2 with
             | None, None -> 0, acc
-            | Some p1Card, None -> 1, acc
-            | None, Some p2Card -> 2, acc
+            | _, None -> 1, acc
+            | None, _ -> 2, acc
             | Some (p1Card, p1Deck), Some (p2Card, p2Deck) ->
                 let cardPile : deck = p1Card :: p2Card :: board
                 match p1Card, p2Card with
@@ -47,12 +47,9 @@ module Game =
                         game [] p1Deck (addCards cardPile p2Deck) (acc+1)
                     | p1Card, p2Card when p1Card = p2Card ->
                         match getCard p1Deck, getCard p2Deck with 
-                            | None, None ->
-                                game (cardPile) [] [] (acc+1)
-                            | Some (p1CardWar, p1CardDeckWar), None ->
-                                game (p1CardWar :: cardPile) p1CardDeckWar [] (acc+1)
-                            | None, Some (p2CardWar, p2CardDeckWar) ->
-                                game (p2CardWar :: p2CardWar :: cardPile) [] p2CardDeckWar (acc+1)
+                            | None, None -> 0, acc
+                            | _, None -> 1, acc
+                            | None, _ -> 2, acc
                             | Some (p1CardWar, p1CardDeckWar), Some (p2CardWar, p2CardDeckWar) ->
                                 game (p1CardWar:: p2CardWar :: cardPile) p1CardDeckWar p2CardDeckWar (acc+1)
                     | _ -> -1, acc
