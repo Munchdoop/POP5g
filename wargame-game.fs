@@ -1,4 +1,4 @@
-///<summary =""></summary>
+///
 type card = int
 type deck = card list
 type player = deck
@@ -29,7 +29,7 @@ let addCards (board : player) (decks : deck) : player =
 
 //game function
 ///<summary> a recursive function that plays a game of the card game war </summary>
-///<param name="board"> a int list </param>
+///<param name="board"> an int list </param>
 ///<param name="player1"> a player which is a int list </param>
 ///<param name="player2"> a player which is a int list </param>
 ///<returns> returns the result of the war game represented as either 0, 1 or 2 </returns>
