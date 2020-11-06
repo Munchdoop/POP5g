@@ -33,49 +33,18 @@ let addCards (board : player) (decks : deck) : player =
 ///<param name="player1"> a player which is a int list </param>
 ///<param name="player2"> a player which is a int list </param>
 ///<returns> returns the result of the war game represented as either 0, 1 or 2 </returns>
-let rec game (board:card list) (player1:player) (player2:player) : int =
-    let draw1 = getCard(player1)
-    let draw2 = getCard(player2)
-    if fst draw1.Value > fst draw2.Value then //checks is player1 wins round
-        let boardAppend = fst draw1.Value :: fst draw2.Value :: board
-        let player1Update = snd draw1.Value
-        let player1Next = addCards boardAppend player1Update
-        let player2Next = snd draw2.Value
-        if List.isEmpty player2Next then 
-            1 
-        //checks if player1 won game
-        else game [] player1Next player2Next  //if no winner 
-    elif fst draw1.Value < fst draw2.Value then //player two wins round
-        let boardAppend = fst draw1.Value :: fst draw2.Value :: board
-        let player2Update = snd draw2.Value
-        let player1Next = snd draw1.Value
-        let player2Next = addCards boardAppend player2Update
-        if List.isEmpty player1Next then 
-            2
-        else game [] player1Next player2Next
-    elif fst draw1.Value = fst draw2.Value then //war
-        let boardUpdate = fst draw1.Value :: fst draw2.Value :: board
-        let player1Update = snd draw1.Value
-        let player2Update = snd draw2.Value
-        if getCard player1Update = None then 
-            2
-        elif getCard player2Update = None then 
-            1
-        else
-            let cardFaceDown1 = getCard(player1Update) 
-            let cardFaceDown2 = getCard(player2Update)
-            let boardUpdate0 = fst cardFaceDown1.Value :: fst cardFaceDown2.Value :: boardUpdate
-            let player1Update1 = snd cardFaceDown1.Value
-            let player2Update1 = snd cardFaceDown2.Value
-            if List.isEmpty player1Update1 then
-                2
-            elif List.isEmpty player2Update1 then
-                1
-            elif List.isEmpty player2Update1 && List.isEmpty player1Update1 then
-                0
-            else
-                game boardUpdate0 player1Update1 player2Update1 
-    else 0
-
-let f = game [] player1 player2
-printfn "%A" f
+let rec game (board:deck) (player1:player) (player2:player) (acc:int) : int*int =
+    match getCard player1, getCard player2 with
+        | None, None -> 0, acc
+        | Some p1Card, None -> 1, acc
+        | None, Some p2Card -> 2, acc
+        | Some (p1Card, p1Deck), Some (p2Card, p2Deck) ->
+            let cardPile : deck = p1Card :: p2Card :: board
+            match p1Card, p2Card with
+                | p1Card, p2Card when p1Card > p2Card -> 
+                    game [] (addCards p1Deck cardPile) p2Deck (acc+1)
+                | p1Card, p2Card when p1Card < p2Card ->
+                    game [] p1Deck (addCards p2Deck cardPile) (acc+1)
+                | p1Card, p2Card when p1Card = p2Card ->
+                    game cardPile p1Deck p2Deck (acc+1)
+                | _ -> -1, acc
