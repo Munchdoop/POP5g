@@ -1,4 +1,5 @@
 module Wargame
+
 type card = int
 type deck = card list 
 
