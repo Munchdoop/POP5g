@@ -4,10 +4,12 @@
 ///<returns> returns a string containing wins, ties and average game length.</param>
 
 let duration f = 
-    let timer = new System.Diagnostics.Stopwatch()
+    let timer = System.Diagnostics.Stopwatch()
     timer.Start()
     let returnValue = f()
-    printfn "Elapsed Time: %i" timer.ElapsedMilliseconds
+    timer.Stop()
+    let ts = timer.Elapsed
+    printfn "\aElapsed time: %02i:%02i:%02i.%02i"  ts.Hours ts.Minutes ts.Seconds (ts.Milliseconds / 10)
     returnValue
 
 let test (n:int) =
@@ -33,4 +35,6 @@ let test (n:int) =
     let average = accumulatedPlays / n 
     printfn "Wins player1: %A, wins player2: %A, ties: %A, average: %A" winsPlayer1 winsPlayer2 ties average
 
-printfn "%A" (duration (fun() -> test 10000))
+printf "Enter number of tests to execute: "
+let n = int (System.Console.ReadLine())
+printfn "%A" (duration (fun() -> test n))
