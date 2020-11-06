@@ -21,6 +21,7 @@ let test (n:int) =
                 ties <- ties + 1 
                 ties
             | _ -> 5
+            |> ignore
     let average = accumulatedPlays / n 
     printfn "Wins player1: %A, wins player2: %A, ties: %A, average: %A" winsPlayer1 winsPlayer2 ties average
 printfn "%A" (test 10000)
