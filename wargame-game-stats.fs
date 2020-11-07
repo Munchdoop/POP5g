@@ -1,8 +1,8 @@
-//test and stats
-///<summary> counts wins, ties and average game length. </summary>
-///<param name = "n"> an int </param>
-///<returns> returns a string containing wins, ties and average game length.</param>
-
+//timer function
+/// <summary>A function wrapper which starts a timer when an input function <paramref name="f"/> executes,
+/// and prints the elapsed time to the console after function execution is completed.</summary>
+/// <param name="f">A function.</param>
+/// <returns>The return value of <paramref name="f"/>.</returns>
 let duration f = 
     let timer = System.Diagnostics.Stopwatch()
     timer.Start()
@@ -12,6 +12,10 @@ let duration f =
     printfn "\aElapsed time: %02i:%02i:%02i.%02i"  ts.Hours ts.Minutes ts.Seconds (ts.Milliseconds / 10)
     returnValue
 
+//test and stats
+/// <summary> counts wins, ties and average game length. </summary>
+/// <param name = "n"> an int </param>
+/// <returns> returns a string containing wins, ties and average game length.</param>
 let test (n:int) =
     let mutable winsPlayer1 = 0 
     let mutable winsPlayer2 = 0
