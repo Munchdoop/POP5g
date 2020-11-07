@@ -9,6 +9,11 @@ module GameImperative =
     let player1 = fst players
     let player2 = snd players
 
+    //timer function
+    /// <summary>A function wrapper which starts a timer when an input function <paramref name="f"/> executes,
+    /// and prints the elapsed time to the console after function execution is completed.</summary>
+    /// <param name="f">A function.</param>
+    /// <returns>The return value of <paramref name="f"/>.</returns>
     let duration f = 
         let timer = new System.Diagnostics.Stopwatch()
         timer.Start()
@@ -17,9 +22,10 @@ module GameImperative =
         returnValue
     
     //getCard function 
-    ///<summary>Takes a player type and returns a tuple containing the head and the tail of players as an option.</summary>
-    ///<param name="play">A type player, see also player.</param>
-    ///<returns>A tuple containing the head and tail of <paramref name="player"/> as an option.</returns>
+    /// <summary>Takes a player type and returns a tuple containing the head and the tail of players as an option.</summary>
+    /// <param name="play">A type player.</param>
+    /// <returns>A tuple containing the head and tail of <paramref name="player"/> as an option.</returns>
+    /// <seealso cref="player"/>
     let getCard (play : player ) : (card * player) option =
         match play with
         | [] -> None
