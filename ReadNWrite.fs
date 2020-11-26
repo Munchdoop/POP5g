@@ -7,15 +7,21 @@ let readFile (filename:string) : string option =
         |_ ->   None
 
 
-let rec cat (filenames:string list) : string option =
-    match filenames with
-        | x :: xs -> 
-            let x1 = readFile(x)
-            match x1 with
-                | None -> None
-                | Some y -> 
-                    y + (cat(xs))
-        | _ -> None
+let cat (filenames:string list) : string option =
+    let rec catHelper (x:string list) : string =
+        match x with
+            | x::xs ->
+                let x1 = readFile(x)
+                match x1 with
+                    | Some y -> y :: (catHelper xs)
+                    | None -> string -1
+            | x ->
+                let x1 = readFile(x)
+                match x1 with
+                    | None -> None
+                    | Some y -> y
+    let res = Some catHelper (filenames)
+    res
 
 
 //tac & cat 
