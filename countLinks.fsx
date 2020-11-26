@@ -28,6 +28,6 @@ let countLinks (url:string) : int =
                 let count = regex.Matches(link).Count
                 count
 
-printfn "input google homepage: %A" (countLinks "http://www.google.com/")
-printfn "input google result for 'cat': %A" (countLinks "http://www.google.com/search?sxsrf=ALeKk03czmkWp5nxj7SY4BGytSSAe4MYfg%3A1606398018183&source=hp&ei=QrC_X4DzCKiYlwTk64LADw&q=cat&oq=cat&gs_lcp=CgZwc3ktYWIQAzIECCMQJzIKCCMQJxCoAxCeAzIECCMQJzIFCAAQsQMyCwgAELEDEIMBEIsDMg4ILhCLAxCoAxCbAxCaAzICCAAyCAgAELEDEIsDMgUILhCxAzIFCAAQiwM6BwgjEOoCECc6BggjECcQE1CLCFijE2C5FGgBcAB4AYAB6wOIAeIGkgEHMS4yLjQtMZgBAKABAaoBB2d3cy13aXqwAQq4AQM&sclient=psy-ab&ved=0ahUKEwiAnPX5qqDtAhUozIUKHeS1APgQ4dUDCAc&uact=5")
-printfn "fail input 'hej' : %A" (countLinks "hej")
+printfn"write url"
+let urls = Console.ReadLine()
+printfn "%A" (countLinks urls)

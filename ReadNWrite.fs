@@ -13,8 +13,10 @@ let rec cat (filenames:string list) : string option =
             let x1 = readFile(x)
             match x1 with
                 | None -> None
-                | Some y -> y :: (cat(xs))
+                | Some y -> 
+                    y + (cat(xs))
         | _ -> None
+
 
 //tac & cat 
 //useful functions:
