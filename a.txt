@@ -1,1 +1,3 @@
-apple
+apple is a fruit 
+ape is an animal
+avocado is expensive 
