@@ -12,7 +12,6 @@ module RNW =
 
 
     let cat (filenames:string list) : string option =
-        //let concat (acc:string) (elm:string) = acc + elm
         let rec catHelper (s:string list) : string option =
             match s with
                 | [] -> 
@@ -25,15 +24,13 @@ module RNW =
                             failwith "Error: file does not exist"
                             None
                         | Some y -> Some y
-                //| x::xs ->
-                //    x |> readFile |> Option.bind (Option.get(catHelper xs))
                 | x::xs ->
                     let myX = readFile(x)
                     match myX with
                         | None -> 
                             failwith "Error: file does not exist"
                             None
-                        | Some y -> Some (y + Option.get(catHelper xs))
+                        | Some y -> Some (y + "\n" + Option.get(catHelper xs))
         catHelper filenames
     
     let rev str = //this is a help-function to tac
@@ -62,7 +59,7 @@ module RNW =
                             failwith "Error: file does not exist" 
                             None 
                         | Some y -> 
-                            Some (Option.get(tachelper xs) + (rev y)) //reverses the order of txt files
+                            Some (Option.get(tachelper xs) + "\n" +  (rev y)) //reverses the order of txt files
         tachelper filenames 
 
 
@@ -74,7 +71,7 @@ module RNW =
 //list.map 
 //Option.get()
 //list.fold
-
+(*
 namespace InOut
 
 module cat =
@@ -100,4 +97,4 @@ module tac =
         let res = RNW.tac myList
         printfn "%s" (Option.get(res))
         0
-        
+        *)
