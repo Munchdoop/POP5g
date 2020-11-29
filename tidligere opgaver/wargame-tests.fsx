@@ -1,19 +1,24 @@
 let shuffleprint =
     let res =  Wargame.Shuffle.newdeck()
     printfn "Shuffle and newdeck: %A" res
+    res
 
-let deck1 = Wargame.Shuffle.newdeck()
+
 let dealprint = 
-    let res = Wargame.Shuffle.deal(deck1)
+    let res = Wargame.Shuffle.deal(shuffleprint)
     printfn "deal function: %A" res
+    res
 
-(*
-let deal1 = Wargame.Shuffle.deal(deck1)
+
 let getcardprint =
-    let res = Wargame.Game.getCard deal1
+    let player1 = fst dealprint
+    let res = Wargame.Game.getCard player1
     printfn "getcard: %A" res
+    res
 
 let addcardsprint =
     let board = [1;5;7]
-    let res = Wargame.Game.addCards board deal1
-    printfn "add cards: %A" res *)
+    let player1 = fst dealprint
+    let res = Wargame.Game.addCards board player1
+    printfn "add cards: %A" res 
+    res
