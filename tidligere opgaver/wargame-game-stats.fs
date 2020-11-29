@@ -40,5 +40,5 @@ let test (n:int) =
     printfn "Wins player1: %A, wins player2: %A, ties: %A, average: %A" winsPlayer1 winsPlayer2 ties average
 
 printf "Enter number of tests to execute: "
-let n = int (System.Console.ReadLine())
+let n = 10000
 printfn "%A" (duration (fun() -> test n))
