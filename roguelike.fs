@@ -7,7 +7,7 @@ type Canvas(dims:int*int) =
     let field = Array2D.create rows cols ('.', Color.White, Color.Black)
     member this.Set(cx:int, cy:int, cc:char, cfg:Color, cbg:Color) =
         field.[cx,cy] <- (cc,cfg,cbg)
-    member this.Show() = 
+    member this.Show () = 
         System.Console.Clear()
         System.Console.ResetColor()
         for i = 0 to rows-1 do
@@ -72,7 +72,7 @@ type Pot =
     inherit Item
 *)
 let io (p:Player) =
-    printfn "Enter a command: "
+    //printfn "Enter a command: "
     match System.Console.ReadKey().Key with
     | System.ConsoleKey.UpArrow -> p.MoveTo(-1,0)
     | System.ConsoleKey.DownArrow -> p.MoveTo(1,0)
@@ -99,7 +99,10 @@ type World(w:int, h:int) =
             wallList <- Wall(w, j) :: wallList
         wallList*)
     member this.Play() = 
-        player.RenderOn(level)
         level.Show()
-        if player.IsDead then exit <- true
-        else io player
+        player.RenderOn(level)
+        while not player.IsDead do
+            io player
+        printfn "Press any key to reset console..."
+        let x = System.Console.ReadKey()
+        System.Console.ResetColor()
