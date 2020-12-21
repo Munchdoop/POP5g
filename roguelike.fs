@@ -65,12 +65,23 @@ type Fire (xInit, yInit)=
         p.Damage 2
         fireLeft <- fireLeft - 1
     member this.FullyOccupy = false
-(*
-type FleshEatingPlant = 
-    inherit Item 
-type Pot = 
-    inherit Item
-*)
+
+type FleshEatingPlant (xInit, yInit) = 
+    inherit Item (xInit, yInit, 'F', Color.White, Color.Green)
+    override this.InteractWith (p:Player) = p.Damage 5
+    member this.FullyOccupy = false
+
+type Pot (xInit, yInit)= 
+    inherit Item (xInit, yInit, 'U', Color.White, Color.DarkMagenta)
+    let mutable potHealth = 1 
+    override this.InteractWith (p:Player) =
+        p.Heal(2)
+        potHealth <- potHealth - 1
+        //pot needs to be deleted after one use 
+
+
+
+
 let io (p:Player) =
     //printfn "Enter a command: "
     match System.Console.ReadKey().Key with
