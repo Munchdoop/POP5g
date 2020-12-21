@@ -113,9 +113,6 @@ type Pot (xInit, yInit)=
         potHealth <- potHealth - 1
         //pot needs to be deleted after one use
 
-
-
-
 let io (p:Player) =
     //printfn "Enter a command: "
     match System.Console.ReadKey().Key with
@@ -130,7 +127,6 @@ let io (p:Player) =
 
 type World(h:int, w:int) =
     let mutable level = Canvas(h,w)
-    //let mutable itemList = Array2D.init h w (fun y x -> Wall(x,y))
     let mutable exit:bool = false
     let player = Player(2,2)
     member this.Exit = exit
@@ -148,14 +144,9 @@ type World(h:int, w:int) =
             wallList <- Wall(w, j) :: wallList
         wallList
     member this.Play() =
-        printfn "Creating room"
-        let x = System.Console.ReadKey()
         let myRoom = this.CreateRoom(5,5)
-        printfn "Looping room"
-        let x = System.Console.ReadKey()
         for elm in myRoom do
             this.AddItem (elm)
-        printfn "Main loop"
         while not player.IsDead do
             player.RenderOn(level)
             level.Show()
