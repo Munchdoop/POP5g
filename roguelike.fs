@@ -128,6 +128,7 @@ let io (p:Player) =
 
 type World(h:int, w:int) =
     let mutable level = Canvas(h,w)
+    let mutable itemList = Array2D.init h w (fun y x -> Wall(x,y))
     let mutable exit:bool = false
     let player = Player(2,2)
     member this.Exit = exit
@@ -135,6 +136,12 @@ type World(h:int, w:int) =
     member this.AddItem (item:Item) =
         level.Set(item.x,item.y,item.c,item.fg,item.bg)
         item.RenderOn(level)
+    member makeList () =
+        let mutable myArray [] = []
+        for i=0 to h do
+            for j=0 to w do
+
+    (*
     member this.CreateRoom(w:int, h:int) = //add startPost(x,y)
         let mutable wallList = []
         for i=0 to h do
@@ -144,10 +151,10 @@ type World(h:int, w:int) =
             wallList <- Wall(0, j) :: wallList
             wallList <- Wall(w, j) :: wallList
         wallList
+    *)
     member this.Play() =
-        let myRoom = this.CreateRoom(5,5)
-        for elm in myRoom do
-            this.AddItem (elm)
+        for elm in itemList do
+            this.AddItem(elm)
         while not player.IsDead do
             player.RenderOn(level)
             level.Show()
