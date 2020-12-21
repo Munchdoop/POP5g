@@ -130,7 +130,7 @@ let io (p:Player) =
 
 type World(h:int, w:int) =
     let mutable level = Canvas(h,w)
-    let mutable itemList = Array2D.init h w (fun y x -> Wall(x,y))
+    //let mutable itemList = Array2D.init h w (fun y x -> Wall(x,y))
     let mutable exit:bool = false
     let player = Player(2,2)
     member this.Exit = exit
