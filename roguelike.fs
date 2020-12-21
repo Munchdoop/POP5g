@@ -93,17 +93,18 @@ type Monster(xInit,yInit) =
         p.Damage(2)
         this.Damage(2) //monster takes damage also
     member this.FullyOccupy = false
-*)
-//'D', Color.White, Color.Green)
 
-    //member this.Open =
-        //override this.InteractWith (p:Player) =
-        //if p.HitPoints >= 5 then
-            //true
-        //else
-            //false
+type Exit (xInit, yInit) =
+    inherit Item(xInit,yInit,'D', Color.White, Color.Green)
+    /member this.FullyOccupy =
+        override this.InteractWith (p:Player) =
+        if p.HitPoints >= 5 then
+            false
+        else
+            true
     //change to true if player has 5 health
-//    member this.FullyOccupy = true
+
+*)
 
 type Pot (xInit, yInit)=
     inherit Item (xInit, yInit, 'U', Color.White, Color.DarkMagenta)
