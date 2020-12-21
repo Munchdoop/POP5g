@@ -148,9 +148,14 @@ type World(h:int, w:int) =
             wallList <- Wall(w, j) :: wallList
         wallList
     member this.Play() =
+        printfn "Creating room"
+        let x = System.Console.ReadKey()
         let myRoom = this.CreateRoom(5,5)
+        printfn "Looping room"
+        let x = System.Console.ReadKey()
         for elm in myRoom do
             this.AddItem (elm)
+        printfn "Main loop"
         while not player.IsDead do
             player.RenderOn(level)
         let x = System.Console.ReadKey()
