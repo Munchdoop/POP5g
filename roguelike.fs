@@ -159,5 +159,7 @@ type World(h:int, w:int) =
         printfn "Main loop"
         while not player.IsDead do
             player.RenderOn(level)
+            level.Show()
+            io (player)
         let x = System.Console.ReadKey()
         System.Console.ResetColor()
