@@ -217,7 +217,7 @@ type World() =
         | System.ConsoleKey.LeftArrow -> this.DoInteractWith(player.x,player.y-1)
         | System.ConsoleKey.RightArrow -> this.DoInteractWith(player.x,player.y+1)
         | System.ConsoleKey.Q -> player.Damage(10) // Suicide button for testing purposes
-        | _ -> player.MoveTo(0,0)
+        | _ -> player.MoveTo(player.x,player.y)
     member this.Play() =
         // Initialise hardcoded level
         for elm in wallList do
