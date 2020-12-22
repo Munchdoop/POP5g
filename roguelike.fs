@@ -1,6 +1,7 @@
 module Roguelike
 
 type Color = System.ConsoleColor
+type Coordinate = int*int
 type Tile = char*Color*Color
 
 type Canvas(dims:int*int) = // Canvas renders the map
@@ -56,7 +57,6 @@ type Player(xInit, yInit) =
 type Item(xInit, yInit, cInit, fgInit, bgInit) =
     inherit Entity(xInit, yInit, cInit, fgInit, bgInit)
     abstract member InteractWith : Player -> unit
-
     member this.FullyOccupy : bool = false
 
 type Water(xInit, yInit) =
@@ -126,20 +126,24 @@ let io (p:Player) =
     | System.ConsoleKey.Q -> p.Damage(10)
     | _ -> p.MoveTo(0,0)
 
+type State = (Item option)
+
 type World(h:int, w:int) =
     let mutable level = Canvas(h,w)
-    let mutable itemList = Array2D.init h w (fun y x -> Wall(x,y))
+    //let mutable itemArray = Array2D.create h w ((None) : State)
     let mutable exit:bool = false
     let player = Player(2,2)
+    //member this.SetWall (w : Wall, coords : (int*int)) =
+    //    (fun (i,j) -> itemArray.[i,j] <- (Some w) :> Item) coords
     member this.Exit = exit
     member this.GetExit() = this.Exit
     member this.AddItem (item:Item) =
         level.Set(item.x,item.y,item.c,item.fg,item.bg)
         item.RenderOn(level)
-    member makeList () =
-        let mutable myArray [] = []
-        for i=0 to h do
-            for j=0 to w do
+    //member makeList () =
+    //    let mutable myArray [] = []
+    //    for i=0 to h do
+    //        for j=0 to w do
 
     (*
     member this.CreateRoom(w:int, h:int) = //add startPost(x,y)
@@ -153,8 +157,10 @@ type World(h:int, w:int) =
         wallList
     *)
     member this.Play() =
-        for elm in itemList do
-            this.AddItem(elm)
+        //this.SetWall(Wall(0,0), (0,0))
+        //let y = Option.get(itemArray.[0,0])
+        //y.RenderOn(level)
+        let x = System.Console.ReadKey()
         while not player.IsDead do
             player.RenderOn(level)
             level.Show()
