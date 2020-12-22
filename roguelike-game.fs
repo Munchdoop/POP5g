@@ -1,5 +1,5 @@
 open Roguelike
 //#r "roguelike.dll"
 
-let game = Roguelike.World(20,20)
+let game = Roguelike.World()
 game.Play()
