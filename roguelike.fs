@@ -76,7 +76,10 @@ type Fire (xInit, yInit)=
         p.Damage(1)
         fireLeft <- fireLeft - 1
     member this.FullyOccupy = false
-    //fire needs to be deleted after 5 touches
+    member this.Remove(c:Canvas) =
+        if fireLeft <= 0 then
+            c.set(xInit,yInit,'.',Color.white,Color.Black)
+            override this.InteractWith (p:Player) = ()    
 
 type FleshEatingPlant (xInit, yInit) =
     inherit Item (xInit, yInit, 'F', Color.White, Color.Green)
@@ -85,7 +88,7 @@ type FleshEatingPlant (xInit, yInit) =
 (*
 type Monster(xInit,yInit) =
     inherit Item(xInit,yInit,'Ø', Color.Green, Color.Black)
-    let mutable hp = 5
+    let mutable hp = 4
     member this.HP = hp
     member this.Killed = hp <= 0
     //if killed then removed
@@ -93,17 +96,21 @@ type Monster(xInit,yInit) =
         p.Damage(2)
         this.Damage(2) //monster takes damage also
     member this.FullyOccupy = false
+    member this.Remove(c:Canvas) =
+        if this.Killed = true then
+            c.set(currentx,currenty,'.',Color.white,Color.Black)
+            override this.InteractWith (p:Player) = ()
+
 
 type Exit (xInit, yInit) =
     inherit Item(xInit,yInit,'D', Color.White, Color.Green)
-    /member this.FullyOccupy =
+    member this.FullyOccupy =
         override this.InteractWith (p:Player) =
         if p.HitPoints >= 5 then
             false
         else
             true
     //change to true if player has 5 health
-
 *)
 
 type Pot (xInit, yInit)=
@@ -112,7 +119,11 @@ type Pot (xInit, yInit)=
     override this.InteractWith (p:Player) =
         p.Heal(2)
         potHealth <- potHealth - 1
-        //pot needs to be deleted after one use
+    member this.Remove(c:Canvas) =
+        if potHealth <= 0 then 
+            c.set(xInit,yInit,'.',Color.white,Color.Black)
+            override this.InteractWith (p:Player) = ()
+ 
 
 let io (p:Player) =
     //printfn "Enter a command: "
@@ -130,11 +141,11 @@ type State = (Item option)
 
 type World(h:int, w:int) =
     let mutable level = Canvas(h,w)
-    //let mutable itemArray = Array2D.create h w ((None) : State)
+    let mutable itemArray = Array2D.create h w ((None) : State)
     let mutable exit:bool = false
     let player = Player(2,2)
-    //member this.SetWall (w : Wall, coords : (int*int)) =
-    //    (fun (i,j) -> itemArray.[i,j] <- (Some w) :> Item) coords
+    member this.SetWall (w : Wall, coords : (int*int)) =
+        (fun (i,j) -> itemArray.[i,j] <- (Some (w :> Item))) coords
     member this.Exit = exit
     member this.GetExit() = this.Exit
     member this.AddItem (item:Item) =
@@ -157,9 +168,15 @@ type World(h:int, w:int) =
         wallList
     *)
     member this.Play() =
-        //this.SetWall(Wall(0,0), (0,0))
+        let myTestWall = Wall(0,0)
+        this.SetWall(myTestWall, (myTestWall.x,myTestWall.y))
         //let y = Option.get(itemArray.[0,0])
         //y.RenderOn(level)
+        for i=0 to h-1 do
+            for j=0 to w-1 do
+                match itemArray.[i,j] with
+                    | Some w -> w.RenderOn(level)
+                    | _ -> level.Set(i,j,'.',Color.White,Color.Black)
         let x = System.Console.ReadKey()
         while not player.IsDead do
             player.RenderOn(level)
