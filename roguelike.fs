@@ -6,15 +6,15 @@ type Color = System.ConsoleColor
 let mutable msg = ""
 
 ///<summary>Canvas displays a graphical representation of the game world.</summary>
-///<paramname="rows">The number of rows to be displayed.</param>
-///<paramname="cols">The number of columns to be displayed.</param>
-///<typeparam="field">An internal field which represents the canvas elements as a 2d array.</typeparam>
-///<typeparam="Set">A class method which takes an x and y value and sets the character, foreground, and background colour at that position in the inernal field array.</typeparam>
-///<typeparam="Show">A class method which refreshes the canvas and displays the internal field aray graphically.</typeparam>
-///<typeparam="ResetField">A class method which resets all values of the internal field array to the default state.</typeparam>
-///<typeparam="AppendMessage">A class method which appends a string to the global msg string.</typeparam>
-///<typeparam="ResetMessage">A class method which resets the global msg string to the default empty state.</typeparam>
-///<typeparam="DisplayMessage">A class method which displays the current global msg string under the game space.</typeparam>
+///<typeparam name="rows">The number of rows to be displayed.</param>
+///<typeparam name="cols">The number of columns to be displayed.</param>
+///<typeparam name="field">An internal field which represents the canvas elements as a 2d array.</typeparam>
+///<typeparam name="Set">A class method which takes an x and y value and sets the character, foreground, and background colour at that position in the inernal field array.</typeparam>
+///<typeparam name="Show">A class method which refreshes the canvas and displays the internal field aray graphically.</typeparam>
+///<typeparam name="ResetField">A class method which resets all values of the internal field array to the default state.</typeparam>
+///<typeparam name="AppendMessage">A class method which appends a string to the global msg string.</typeparam>
+///<typeparam name="ResetMessage">A class method which resets the global msg string to the default empty state.</typeparam>
+///<typeparam name="DisplayMessage">A class method which displays the current global msg string under the game space.</typeparam>
 type Canvas(dims:int*int) = // Canvas renders the map
     let (rows, cols) = dims
     let mutable field = Array2D.create rows cols ('.', Color.White, Color.Black)
@@ -50,14 +50,14 @@ type Canvas(dims:int*int) = // Canvas renders the map
         this.ResetMessage()
 
 ///<summary>Enitity is abstract class, wich other classes inherits from.</summary>
-///<paramnanme="_x">Mutable field which sets the x-coordinate when an entity is instantiated.</paramname>
-///<paramnanme="_y">Mutable field which sets the y-coordinate when an entity is instantiated.</paramname>
-///<paramnanme="x">Property which holds the x-coordinate of the entity and is equal to _x.</paramname>
-///<paramnanme="y">Property which holds the y-coordinate of the entity and is equal to _y.</paramname>
-///<paramname="c">Property which holds the char of the entity and is set by cInit on instantion.</paramname>
-///<paramname="fg">Property which holds the foreground-color of the entity and is set by fgInit on instantiation.</paramname>
-///<paramname="bg">Property which holds the background-color of the entity and is set by bgInit on instantiaiton.</paramname>
-///<paramname="RenderOn">Abstract method which takes a Canvas and is resposible for rendering entity on the canvas.</paramname>
+///<param nanme="_x">Mutable field which sets the x-coordinate when an entity is instantiated.</paramname>
+///<param nanme="_y">Mutable field which sets the y-coordinate when an entity is instantiated.</paramname>
+///<param nanme="x">Property which holds the x-coordinate of the entity and is equal to _x.</paramname>
+///<param nanme="y">Property which holds the y-coordinate of the entity and is equal to _y.</paramname>
+///<param name="c">Property which holds the char of the entity and is set by cInit on instantion.</paramname>
+///<param name="fg">Property which holds the foreground-color of the entity and is set by fgInit on instantiation.</paramname>
+///<param name="bg">Property which holds the background-color of the entity and is set by bgInit on instantiaiton.</paramname>
+///<param name="RenderOn">Abstract method which takes a Canvas and is resposible for rendering entity on the canvas.</paramname>
 
 [<AbstractClass>]
 type Entity(xInit:int, yInit:int, cInit:char, fgInit:Color, bgInit:Color) =
@@ -72,7 +72,14 @@ type Entity(xInit:int, yInit:int, cInit:char, fgInit:Color, bgInit:Color) =
     default this.RenderOn (canvas:Canvas) =
         canvas.Set(this.x,this.y,this.c,this.fg,this.bg)
 
-///<summary>Player is the class which contains the properties and methods for the playable character.</summary>
+///<summary>Player is the class which contains the properties and methods for the playable character.</param>
+///<param name="hp">The field health of the player character which starts at 10.</param>
+///<param name="pos">The characters current position stored as a tuple.</param>
+///<param name="HitPoints">The HitPoints property which is set equal to the field hp</param>
+///<param name="Damage">Damage method, which subtracts the amount of damage given to the player.</param>
+///<param name="Heal">Heal method, which heals the player by adding hitpoints to the player.</param>
+///<param name="MoveTo">Moves the player character by updating the x-/y-coordinates.</param>
+///<param name="RenderOn">Renders the player on, by updating the tile with the player character but maintaining the background color.</param>
 type Player(xInit, yInit) =
     inherit Entity(xInit, yInit, '@', Color.Yellow, Color.Black)
     let mutable hp = 10
@@ -91,6 +98,11 @@ type Player(xInit, yInit) =
     override this.RenderOn (canvas:Canvas) =
         canvas.SetOnOccupied(this.x,this.y,this.c,this.fg)
 
+///<summary> A class that inherits from Entity and sets some abstract members for Item subclasses </summary>
+///<param name="InteractWith"> What the class does to the player </param>
+///<param name="FullyOccupy"> tells is occupies a whole field or not </param>
+///<param name="pos"> the position of the water as a tuple</param>
+///<param name="Flag">a bool that determines if an item is used </param>
 [<AbstractClass>]
 type Item(xInit, yInit, cInit, fgInit, bgInit) =
     inherit Entity(xInit, yInit, cInit, fgInit, bgInit)
@@ -98,7 +110,11 @@ type Item(xInit, yInit, cInit, fgInit, bgInit) =
     abstract member FullyOccupy : bool
     member val pos = (xInit,yInit)
     member val Flag : bool = false with get,set
-        
+
+///<summary> A class that defines water, which has healing abilities </summary>
+///<param name="pos"> the position of the water as a tuple</param>
+///<param name=InteractWith> What the class does to the player </param>
+///<param name="FullyOccupy"> tells is occupies a whole field or not </param>
 type Water(xInit, yInit) =
     inherit Item(xInit, yInit, '~', Color.White, Color.Blue)
     member this.pos = (this.x,this.y)
@@ -107,12 +123,20 @@ type Water(xInit, yInit) =
         player.Heal(2)
     override this.FullyOccupy = false
 
+///<summary> A class that defines wall, which acts as a block for the player </summary>
+///<param name="pos"> the position of the wall as a tuple</param>
+///<param name=InteractWith> What the class does to the player </param>
+///<param name="FullyOccupy"> tells is occupies a whole field or not </param>   
 type Wall(xInit, yInit) =
     inherit Item(xInit, yInit, '|',Color.White,Color.White)
     member this.pos = (this.x,this.y)
     override this.InteractWith(_) = msg <- "You hit a wall.\n"
     override this.FullyOccupy = true
 
+///<summary> A class that defines fire, which has hurting abilities </summary>
+///<param name="pos"> the position of the fire as a tuple</param>
+///<param name=InteractWith> What the class does to the player </param>
+///<param name="FullyOccupy"> tells is occupies a whole field or not </param>
 type Fire (xInit, yInit)=
     inherit Item(xInit, yInit, '^',Color.DarkYellow,Color.Yellow)
     let mutable fireLeft = 5
@@ -126,6 +150,10 @@ type Fire (xInit, yInit)=
         else this.Flag <- false
     override this.FullyOccupy = false   
 
+///<summary> A class that defines FleshEatingPlant, which has hurting abilities </summary>
+///<param name="pos"> the position of the FleshEatingPlant as a tuple</param>
+///<param name=InteractWith> What the class does to the player </param>
+///<param name="FullyOccupy"> tells is occupies a whole field or not </param>
 type FleshEatingPlant (xInit, yInit) =
     inherit Item (xInit, yInit, 'F', Color.White, Color.Green)
     member this.pos = (this.x,this.y)
@@ -134,6 +162,10 @@ type FleshEatingPlant (xInit, yInit) =
         p.Damage(5)
     override this.FullyOccupy = true
 
+///<summary> A class that defines lava, which has hurting abilities </summary>
+///<param name="pos"> the position of the lava as a tuple</param>
+///<param name=InteractWith> What the class does to the player </param>
+///<param name="FullyOccupy"> tells is occupies a whole field or not </param>
 type Lava (xInit,yInit) =
     inherit Item(xInit,yInit,'Ø', Color.Red, Color.DarkRed)
     member this.pos = (this.x,this.y)
@@ -142,6 +174,10 @@ type Lava (xInit,yInit) =
         p.Damage(9) //Lava kills (or almost kills) player - very dangerous
     override this.FullyOccupy = false
 
+///<summary> A class that defines Pot, which has healing abilities </summary>
+///<param name="pos"> the position of the Pot as a tuple</param>
+///<param name=InteractWith> What the class does to the player </param>
+///<param name="FullyOccupy"> tells is occupies a whole field or not </param>
 type Pot (xInit, yInit)=
     inherit Item (xInit, yInit, 'U', Color.White, Color.DarkMagenta)
     let mutable potHealth = 1
@@ -152,7 +188,14 @@ type Pot (xInit, yInit)=
             this.Flag <- true
             msg <- "You broke a pot and feel refreshed."
     override this.FullyOccupy = true
-    
+
+///<summary> A class that defines Exit, which has winning abilities </summary>
+///<param name="pos"> the position of the FleshEatingPlant as a tuple</param>
+///<param name=InteractWith> What the class does to the player </param>
+///<param name="FullyOccupy"> tells is occupies a whole field or not </param>
+///<param name="CanExit"> write to world if player has more than 5 HP </param>
+///<param name="SetCanExit"> a bool that decides if the player can exit </param>
+///<param name="HasExited"> triggers the winscreen </param>
 type Exit (xInit, yInit) =
     inherit Item(xInit,yInit,'D', Color.White, Color.Green)
     let mutable _canExit:bool = false
@@ -191,6 +234,19 @@ let plantList = [(1,6);(2,8);(3,3);(3,6);(3,7);(9,10)]
 let potList = [(7,5)]
 // End hardcoded level lists
 
+/// <summary>A class that represents the game world, and tracks all objects within it,
+/// particularly <typeparamref name="Player"/> and <typeparamref name="Exit"/> which
+/// the class monitors to make decisions on the game state.</summary>
+/// <typeparam name="PlayerExited">Returns true or false depending on whether the player 
+///has exited the dungeon.</typeparam>
+/// <typeparam name="AddItem">A method which appends an item to the private field <paramref name="_itemList"/>.</typeparam>
+/// <typeparam name="BufferCanvas">A method which deletes items flagged for deletion, and calls
+/// the RenderOn() method for each item in <paramref name="_itemList"/>.</typeparam>
+/// <typeparam name="DoInteractWith">A method which determines whether a player can move onto a
+/// tile, and executes all the relevant InteractWith() methods in each object.</typeparam>
+/// <typeparam name="IO">A method which requests user input for further use.</typeparam>
+/// <typeparam name="Play">A method which initialises the level, defines the game loop, calls the various 
+/// class methods as needed, and closes the program upon game over.</typeparam>
 type World() =
     let mutable _level = Canvas(12,12)
     let mutable _itemList = []
@@ -255,5 +311,5 @@ type World() =
         // Closing message
         _level.AppendMessage("Press any key to terminate the program...")
         _level.DisplayMessage()
-        System.Console.ReadKey()
+        System.Console.ReadKey() |> ignore
         System.Console.ResetColor()
